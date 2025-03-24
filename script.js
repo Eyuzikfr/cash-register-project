@@ -55,7 +55,7 @@ const updateCashDrawer = () => {
 
   cashInDrawerList.innerHTML = cid
     .map((category) => {
-      return `<li><strong>${category[0]}</strong> : $ ${category[1]}</li>`;
+      return `<li><strong>${category[0]}</strong> : $${category[1]}</li>`;
     })
     .join("");
 };
@@ -136,8 +136,8 @@ purchaseBtn.addEventListener("click", () => {
   const cashInput = parseFloat(cash.value);
 
   // update price span and paid span
-  priceSpan.textContent = `$ ${price}`;
-  paidSpan.textContent = `$ ${cashInput}`;
+  priceSpan.textContent = `$${price}`;
+  paidSpan.textContent = `$${cashInput}`;
 
   if (cashInput < price) {
     window.alert("Customer does not have enough money to purchase the item");
