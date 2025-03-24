@@ -82,6 +82,12 @@ main {
   background-color: var(--purpureus);
 }
 
+#cash-register > h2 {
+  border-bottom: 1px solid #c4bfbf;
+  padding-bottom: 2px;
+  margin-bottom: 15px;
+}
+
 #cash-register > ul {
   /* border: 2px solid red; */
   list-style-type: none;
