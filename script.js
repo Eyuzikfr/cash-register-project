@@ -25,18 +25,34 @@ let currencyValues = {
 };
 
 // access dom nodes
-const changeDueDiv = document.getElementById("change-due");
+const changeDueDiv = document.querySelector(".change-due");
+const modalChangeDueDiv = document.querySelector(".modal-change-due");
 const priceInput = document.getElementById("price-input");
 const cash = document.getElementById("cash");
 const purchaseBtn = document.getElementById("purchase-btn");
 const priceSpan = document.querySelector(".price");
+const paidSpan = document.querySelector(".paid");
 const cashInDrawerList = document.getElementById("cash-in-drawer");
+const confirmModal = document.querySelector(".modal");
+const confirmBtn = document.getElementById("confirm-btn");
+const cancelBtn = document.getElementById("cancel-btn");
+const modalBg = document.getElementById("modal-display");
 
-// declare price variable
+// declare variables
 let price = 0;
+let changeDueArray = [];
 
 // render change in drawer
 const updateCashDrawer = () => {
+  // deduct the returned change from thee cash drawer
+  for (let i = cid.length - 1; i >= 0; i--) {
+    for (let j = changeDueArray.length - 1; j >= 0; j--) {
+      if (changeDueArray[j][0] === cid[i][0]) {
+        cid[i][1] -= changeDueArray[j][1];
+      }
+    }
+  }
+
   cashInDrawerList.innerHTML = cid
     .map((category) => {
       return `<li><strong>${category[0]}</strong> : $ ${category[1]}</li>`;
@@ -45,18 +61,12 @@ const updateCashDrawer = () => {
 };
 
 const purchase = (cash) => {
-  if (cash < price) {
-    window.alert("Customer does not have enough money to purchase the item");
-    return;
-  }
-
   if (cash === price) {
     changeDueDiv.textContent = "No change due - customer paid with exact cash";
     return;
   }
 
   let changeDue = Number((cash - price).toFixed(2));
-  let changeDueArray = [];
   let totalCID = Number(
     cid.reduce((sum, denom) => sum + denom[1], 0).toFixed(2)
   );
@@ -71,8 +81,10 @@ const purchase = (cash) => {
     changeDueArray = cid.filter((cash) => cash[1] !== 0); // return all cash in drawer
 
     changeDueDiv.innerHTML = `<p>Status: CLOSED</p>`;
+    modalChangeDueDiv.innerHTML = `<p>Status: OPEN</p>`;
     changeDueArray.forEach(([denom, amount]) => {
       changeDueDiv.innerHTML += `<p>${denom}: $${amount}</p>`;
+      modalChangeDueDiv.innerHTML += `<p>${denom}: $${amount}</p>`;
     });
   } else {
     // when cash is more than price and change due is less than totalCID
@@ -81,7 +93,7 @@ const purchase = (cash) => {
       let unitValue = currencyValues[denom]; // get unit value of the currency
       let needed = Math.floor(changeDue / unitValue); // number of coins/bills needed
       let available = amount / unitValue; // number of bills/coins in drawer
-      let used = Math.min(needed, available);
+      let used = Math.min(needed, available); // use only what's needed or only what's available
 
       if (used > 0) {
         let returnAmount = used * unitValue;
@@ -94,39 +106,62 @@ const purchase = (cash) => {
       changeDueDiv.textContent = "Status: INSUFFICIENT_FUNDS";
       return;
     }
-    for (let i = cid.length - 1; i >= 0; i--) {
-      for (let j = changeDueArray.length - 1; j >= 0; j--) {
-        if (changeDueArray[j][0] === cid[i][0]) {
-          cid[i][1] -= changeDueArray[j][1];
-        }
-      }
-    }
 
     changeDueDiv.innerHTML = `<p>Status: OPEN</p>`;
+    modalChangeDueDiv.innerHTML = `<p>Status: OPEN</p>`;
     changeDueArray.forEach(([denom, amount]) => {
       changeDueDiv.innerHTML += `<p>${denom}: $${amount}</p>`;
+      modalChangeDueDiv.innerHTML += `<p>${denom}: $${amount}</p>`;
     });
   }
-  updateCashDrawer();
 };
 
-const resetInput = () => {
+const resetFields = () => {
   priceInput.value = ``;
   cash.value = ``;
+  changeDueArray = [];
+  changeDueDiv.textContent = ``;
 };
+
+document.addEventListener("DOMContentLoaded", () => {
+  resetFields();
+  updateCashDrawer();
+});
 
 purchaseBtn.addEventListener("click", () => {
   // get price input
   price = Number(Number(priceInput.value).toFixed(2));
-  // update price span content with total price
-  priceSpan.textContent = `$ ${price}`;
 
   // store input cash
   const cashInput = parseFloat(cash.value);
-  purchase(cashInput);
+
+  // update price span and paid span
+  priceSpan.textContent = `$ ${price}`;
+  paidSpan.textContent = `$ ${cashInput}`;
+
+  if (cashInput < price) {
+    window.alert("Customer does not have enough money to purchase the item");
+    return;
+  }
+
+  if (priceInput.value === "" || cash.value === "") {
+    window.alert("Please enter price and cash from customer.");
+  } else {
+    purchase(cashInput);
+    confirmModal.style.display = "flex";
+    modalBg.style.display = "flex";
+  }
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  resetInput();
+confirmBtn.addEventListener("click", () => {
   updateCashDrawer();
+  resetFields();
+  confirmModal.style.display = "none";
+  modalBg.style.display = "none";
+});
+
+cancelBtn.addEventListener("click", () => {
+  resetFields();
+  confirmModal.style.display = "none";
+  modalBg.style.display = "none";
 });

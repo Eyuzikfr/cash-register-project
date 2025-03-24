@@ -19,17 +19,34 @@
       <h1>Cash Register Project</h1>
     </header>
     <main>
-      <div id="change-due"></div>
-      <div class="cash-submission-section">
-        <label for="price-input"
-          >Price: <input type="number" id="price-input"
-        /></label>
-        <label for="cash"
-          >Cash From Customer: <input type="number" id="cash"
-        /></label>
-        <button id="purchase-btn" class="primary-btn">Purchase</button>
+      <div class="main-section">
+        <div class="change-due"></div>
+        <div class="cash-submission-section">
+          <label for="price-input"
+            >Price: <input type="number" id="price-input"
+          /></label>
+          <label for="cash"
+            >Cash From Customer: <input type="number" id="cash"
+          /></label>
+          <button id="purchase-btn" class="primary-btn">Purchase</button>
+        </div>
+        <div id="modal-display">
+          <div class="modal">
+            <h3>Confirm Purchase?</h3>
+            <div class="status-container">
+              <div class="price-container">
+                Total: <span class="price"></span>
+              </div>
+              <div class="paid-cash">Paid: <span class="paid"></span></div>
+              <div class="modal-change-due"></div>
+            </div>
+            <div class="buttons">
+              <button id="confirm-btn" class="primary-btn">Confirm</button>
+              <button id="cancel-btn" class="primary-btn">Cancel</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="price-container">Total: <span class="price"></span></div>
       <div id="cash-register">
         <h2>Change in drawer:</h2>
         <ul id="cash-in-drawer"></ul>
