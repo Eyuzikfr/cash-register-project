@@ -1,0 +1,91 @@
+/* TODO remove all (commented) border properties */
+
+:root {
+  --jordy-blue: #91c4f2ff;
+  --vista-blue: #8ca0d7ff;
+  --african-violet: #9d79bcff;
+  --purpureus: #a14da0ff;
+  --mardi-gras: #7e1f86ff;
+}
+
+html {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: var(--vista-blue);
+  /* border: 2px solid red; */
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  /* border: 2px solid blue; */
+  margin-top: 10vh;
+}
+
+main {
+  /* border: 2px solid orange; */
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.cash-submission-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.8rem;
+}
+
+.cash-submission-section > label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cash-submission-section > label > input {
+  height: 2.3rem;
+  width: 15rem;
+  text-align: center;
+}
+
+.primary-btn {
+  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  height: 2.5rem;
+  width: 10rem;
+  border-radius: 7px;
+  background-color: var(--mardi-gras);
+  color: #f2f2f2;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.primary-btn:hover {
+  background-color: var(--purpureus);
+}
+
+#cash-register > ul {
+  /* border: 2px solid red; */
+  list-style-type: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
