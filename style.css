@@ -82,10 +82,19 @@ main {
   background-color: var(--purpureus);
 }
 
-#cash-register > h2 {
+#cash-register > a > h2 {
   border-bottom: 1px solid #c4bfbf;
   padding-bottom: 2px;
   margin-bottom: 15px;
+}
+
+.easter-link {
+  color: #f0f0f0;
+  text-decoration: none;
+}
+
+.easter-link > h2:hover {
+  animation: spin 1s ease infinite normal;
 }
 
 #cash-register > ul {
@@ -142,4 +151,16 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   appearance: textfield;
   -moz-appearance: textfield;
+}
+
+@keyframes spin {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
