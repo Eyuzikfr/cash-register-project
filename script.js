@@ -35,9 +35,6 @@ const cashInDrawerList = document.getElementById("cash-in-drawer");
 // declare price variable
 let price = 0;
 
-// update price span content with total price
-priceSpan.textContent = `$ ${price}`;
-
 // render change in drawer
 const updateCashDrawer = () => {
   cashInDrawerList.innerHTML = cid
@@ -121,6 +118,8 @@ const resetInput = () => {
 purchaseBtn.addEventListener("click", () => {
   // get price input
   price = Number(Number(priceInput.value).toFixed(2));
+  // update price span content with total price
+  priceSpan.textContent = `$ ${price}`;
 
   // store input cash
   const cashInput = parseFloat(cash.value);
