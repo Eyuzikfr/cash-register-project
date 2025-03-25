@@ -161,7 +161,7 @@ confirmBtn.addEventListener("click", () => {
 });
 
 cancelBtn.addEventListener("click", () => {
-  resetFields();
+  changeDueArray = [];
   confirmModal.style.display = "none";
   modalBg.style.display = "none";
 });
